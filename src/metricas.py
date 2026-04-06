@@ -88,3 +88,26 @@ Retorna:
 frecuencia: float
     La frecuencia cardiaca calculada en latidos por minuto.
 '''
+
+from src.utils_ecg import detectar_picos_qrs 
+
+def calcular_fc_desde_datos(datos): 
+    tiempos = [] 
+    senal = [] 
+    for d in datos: 
+        tiempos.append(d["tiempo"]) 
+        senal.append(d["valor"]) 
+    picos = detectar_picos_qrs(tiempos, senal) 
+    return calcular_frecuencia_cardiaca(picos)
+
+'''
+Funcion que calcula la frecuencia cardiaca a partir de una lista de datos 
+
+Parámetros:
+datos: list
+    lista de diccionarios donde cada diccionario contiene las claves "tiempo" y "valor" 
+    
+Retorna:
+frecuencia: float
+    La frecuencia cardiaca calculada en latidos por minuto.
+'''
