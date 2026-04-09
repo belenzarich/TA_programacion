@@ -1,8 +1,8 @@
-from carga_datos import cargar_datos
-from procesamiento_datos import filtrar_por_participante
-from metricas import (calcular_promedio_senal, calcular_maximo_senal, calcular_minimo_senal, calcular_fc_desde_datos)
+from src.carga_datos import cargar_datos
+from src.procesamiento_datos import filtrar_por_participante
+from src.metricas import (calcular_promedio_senal, calcular_maximo_senal, calcular_minimo_senal, calcular_fc_desde_datos)
 
-datos = cargar_datos("datos_proyecto.csv")
+datos = cargar_datos("PulseLab_mock_data.csv")
 
 id_participante = int(input("id que desea buscar: "))
 datos_p1 = filtrar_por_participante(datos, id_participante)

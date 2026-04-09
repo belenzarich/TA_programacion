@@ -1,4 +1,4 @@
-def filtrar_por_pacientes(lista, id_buscado):
+def filtrar_por_participante(lista, id_buscado):
     '''
     filtra una lista de diccionarios con un id buscado y devuelve los datos de ese id.
 
