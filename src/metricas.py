@@ -19,7 +19,7 @@ promedio: float
    El promedio de los valores 
 '''
 
-def calcular_maxima_senal(lista):
+def calcular_maximo_senal(lista):
     if len(lista) == 0:
         return 0
     maximo = lista[0]["valor"]
@@ -42,7 +42,7 @@ maximo: int
 '''
 
 
-def calcular_minima_senal(lista):
+def calcular_minimo_senal(lista):
     if len(lista) == 0:
         return 0
     minimo = lista[0]["valor"]
