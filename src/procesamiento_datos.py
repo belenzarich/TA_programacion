@@ -17,8 +17,11 @@ def filtrar_por_participante(lista, id_buscado):
     '''
     filtrados = []
     
-    for dato in lista:
-        if dato["id_participante"] == id_buscado:
-            filtrados.append(dato)
+    if len(lista) == 0:
+        print('Lista vacía')
+    
+        for dato in lista:
+            if dato["id_participante"] == id_buscado:
+                filtrados.append(dato)
     
     return filtrados
