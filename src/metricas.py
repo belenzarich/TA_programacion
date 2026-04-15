@@ -1,6 +1,6 @@
 def calcular_senal_promedio(lista):
     if len(lista) == 0:
-        return 0
+        raise ValueError("Lista no puede estar vacia")
     suma = 0
     for dato in lista:
         valor = dato["valor"]
@@ -17,18 +17,22 @@ lista: list
 Retorna:
 promedio: float
    El promedio de los valores 
+
+Raises:
+ValueError: Si la lista esta vacia
 '''
 
 def calcular_maximo_senal(lista):
-    if len(lista) == 0:
-        return 0
-    maximo = lista[0]["valor"]
+  if len(lista) == 0:
+    raise ValueError("La lista esta vacia")
+  maximo = lista[0]["valor"]
 
-    for dato in lista:
-        valor = dato["valor"]
-        if valor > maximo:
-            maximo = valor
-    return maximo
+  for dato in lista:
+    valor = dato["valor"]
+    if valor > maximo:
+      maximo = valor
+
+  return maximo
 '''
 Funcion que busca el valor máximo de señal en una lista de diccionarios
 
@@ -39,17 +43,22 @@ lista: list
 Retorna:
 maximo: int
    El valor máximo encontrado.  
+
+Raises:
+ValueError: si la lista esta vacia
 '''
 
 
 def calcular_minimo_senal(lista):
     if len(lista) == 0:
-        return 0
+      raise ValueError("La lista está vacía")
     minimo = lista[0]["valor"]
+
     for dato in lista:
-        valor = dato["valor"]
-        if valor < minimo:
-            minimo = valor
+      valor = dato["valor"]
+      if valor < minimo:
+        minimo = valor
+
     return minimo
 '''
 Funcion que busca el valor mínimo de señal en una lista de diccionarios
@@ -61,22 +70,37 @@ lista: list
 Retorna:
 minimo: int
    El valor mínimo encontrado.  
+
+Raises:
+ValueError: si la lista esta vacia
 '''
 
 def calcular_frecuencia_cardiaca(picos):
     if len(picos) < 2:
-        return "no se puede calcular la FC porque no hay suficientes picos"
+        raise ValueError("No hay suficientes picos para calcular la frecuencia")
     
+    picos_numericos = []
+    for p in picos:
+        try:
+            picos_numericos.append(float(p))
+        except ValueError:
+            raise ValueError("Los picos deben ser numeros")
+
     suma_intervalos = 0
 
-    for i in range(1, len(picos)):
-        intervalo = picos[i] - picos[i-1]
+    for i in range(1, len(picos_numericos)):
+        intervalo = picos_numericos[i] - picos_numericos[i-1]
         suma_intervalos += intervalo
 
-    intervalo_promedio = suma_intervalos / (len(picos) - 1)
+    intervalo_promedio = suma_intervalos / (len(picos_numericos) - 1)
+
+    if intervalo_promedio == 0:
+        raise ValueError("El intervalo promedio no puede ser 0")
+   
     frecuencia = 60 / intervalo_promedio
 
     return frecuencia
+
 '''
 Funcion que calcula la frecuencia cardiaca a partir de una lista de picos 
 
@@ -87,6 +111,10 @@ picos: list
 Retorna:
 frecuencia: float
     La frecuencia cardiaca calculada en latidos por minuto.
+    
+Raises:
+ValueError: si no hay suficientes picos para calcular la frecuencia, 
+            si los picos no son numeros, y si el intervalo promedio es 0
 '''
 
 from src.utils_ecg import detectar_picos_qrs 
