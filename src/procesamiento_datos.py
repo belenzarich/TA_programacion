@@ -12,7 +12,7 @@ def filtrar_por_participante(lista, id_buscado):
     Returns
     -------
     filtrados : list
-        lista con los datos del paciente buscado.
+        lista con diccionario de los datos del paciente buscado.
 
     '''
     filtrados = []
