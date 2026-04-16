@@ -26,9 +26,9 @@ def parsear_lineas(linea):
     if len(valores) != 6:
         raise ValueError('Cantidad incorrecta de columnas')
     
-    try:
+    try: #acortar el try para indicar el error o usar if y raises
         id_participante = int(valores[0])
-        tiempo = float(valores[1])
+        tiempo = float(valores[1]) #crear una funcion que convierta a float y valide a tiempo y valor
         valor = float(valores[2])
         fase = valores[3]
         condicion_experimental = valores[4]

@@ -10,26 +10,17 @@ if len(datos) == 0:
 else:
     id_participante_str = input('ID que desea buscar: ')
     
-    if id_participante_str in ['todos', 'Todos', 'TODOS']:
+    if id_participante_str in ['todos', 'Todos', 'TODOS']: #usar eso en filtrar_por_participante --> diagrama de flujo
         datos_part = datos
         
         try:
-           promedio = calcular_senal_promedio(datos_part) #tal vez podemos poner todas las funciones en un mismo try y despues valueerror as e
+           promedio = calcular_senal_promedio(datos_part) 
+           frecuencia = calcular_fc_desde_datos(datos_part)
+           minimo = calcular_minimo_senal(datos_part)
+           maximo = calcular_maximo_senal(datos_part)
         except ValueError as e:
             print("Error:", e)
-        try:
-            maximo = calcular_maximo_senal(datos_part)
-        except ValueError as e:
-            print("Error:", e)
-        try:
-            minimo = calcular_minimo_senal(datos_part)
-        except ValueError as e:
-            print("Error:", e)
-        try:
-            frecuencia = calcular_fc_desde_datos(datos_part)
-        except ValueError as e:
-            print("Error: ", e)
-
+       
         print("Promedio:", promedio)
         print("Máximo:", maximo)
         print("Mínimo:", minimo)
@@ -52,24 +43,14 @@ else:
             else:
                 try:
                    promedio = calcular_senal_promedio(datos_part)
+                   maximo = calcular_maximo_senal(datos_part)
+                   minimo = calcular_minimo_senal(datos_part)
+                   frecuencia = calcular_fc_desde_datos(datos_part)
                 except ValueError as e:
                     print("Error:", e)
-                try:
-                    maximo = calcular_maximo_senal(datos_part)
-                except ValueError as e:
-                    print("Error:", e)
-                try:
-                    minimo = calcular_minimo_senal(datos_part)
-                except ValueError as e:
-                    print("Error:", e)
-                try:
-                    frecuencia = calcular_fc_desde_datos(datos_part)
-                except ValueError as e:
-                    print("Error: ", e)
         
                 print("Promedio:", promedio)
                 print("Máximo:", maximo)
                 print("Mínimo:", minimo)
                 print("Frecuencia cardíaca:", frecuencia)
 
-# tal vez todo lo de arriba de los try/except y los print podrían ser una funcion
