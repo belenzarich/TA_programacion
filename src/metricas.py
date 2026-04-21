@@ -116,7 +116,13 @@ Raises:
 ValueError: si no hay suficientes picos para calcular la frecuencia, 
             si los picos no son numeros, y si el intervalo promedio es 0
 '''
-
+def validar_tiempo_creciente(tiempos):
+    if len(tiempos) == 0:
+        raise ValueError("La lista de tiempos esta vacia")
+    for i in range (1, len(tiempos)):
+        if tiempos[i] <= tiempos[i-1]:
+            raise ValueError(f"Error en posicion {i}: {tiempos[i]} <= {tiempos[i-1]}")
+            
 from src.utils_ecg import detectar_picos_qrs 
 
 def calcular_fc_desde_datos(datos): 
@@ -125,6 +131,9 @@ def calcular_fc_desde_datos(datos):
     for d in datos: 
         tiempos.append(d["tiempo"]) 
         senal.append(d["valor"]) 
+        
+    validar_tiempo_creciente(tiempos) 
+    
     picos = detectar_picos_qrs(tiempos, senal) 
     return calcular_frecuencia_cardiaca(picos)
 

@@ -21,6 +21,14 @@ def convertir_float(linea):
     except ValueError:
         raise ValueError('Error al convertir valor a float')
 
+def validar_categoria(valor, opciones_validas, nombre_campo):
+    if valor not in opciones_validas:
+        raise ValueError(f"{nombre_campo} invalido. Opciones validas: {opciones_validas}")
+
+def validar_entero_positivo(valor, nombre_campo):
+    if valor <= 0:
+        raise ValueError(f"{nombre_campo} debe ser mayor a 0")
+
 #Funcion de parsear 
 def parsear_lineas(linea):
     '''
@@ -51,10 +59,13 @@ def parsear_lineas(linea):
     
     try: #acortar el try para indicar el error o usar if y raises
         id_participante = int(valores[0])
+        validar_entero_positivo(id_participante, "id_participante")
         tiempo = convertir_float(valores[1]) 
         valor = convertir_float(valores[2])
         fase = valores[3]
+        validar_categoria(fase, ["baseline", "tarea"], "fase")
         condicion_experimental = valores[4]
+        validar_categoria(condicion_experimental, ["competencia", "cooperacion"], "condicion_experimental")
         hit_str = valores[5].strip().lower()
         if hit_str not in ['true', 'false']:
             raise ValueError('Valor invalido para hit')
