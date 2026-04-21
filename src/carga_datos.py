@@ -1,3 +1,26 @@
+#Funcion que convierta a float y valide 
+def convertir_float(linea):
+    '''
+    Funcion que convierte valor de str a float. 
+
+    Parameters
+    ----------
+    linea : str
+        Linea de archivo.
+
+    Returns
+    -------
+    valor float
+    
+    Raises
+    -------
+    ValueError: si el str no se puede convertir a float.
+    '''
+    try:
+        return float(linea)
+    except ValueError:
+        raise ValueError('Error al convertir valor a float')
+
 #Funcion de parsear 
 def parsear_lineas(linea):
     '''
@@ -28,8 +51,8 @@ def parsear_lineas(linea):
     
     try: #acortar el try para indicar el error o usar if y raises
         id_participante = int(valores[0])
-        tiempo = float(valores[1]) #crear una funcion que convierta a float y valide a tiempo y valor
-        valor = float(valores[2])
+        tiempo = convertir_float(valores[1]) 
+        valor = convertir_float(valores[2])
         fase = valores[3]
         condicion_experimental = valores[4]
         hit_str = valores[5].strip().lower()
