@@ -10,47 +10,22 @@ if len(datos) == 0:
 else:
     id_participante_str = input('ID que desea buscar: ')
     
-    if id_participante_str in ['todos', 'Todos', 'TODOS']: #usar eso en filtrar_por_participante --> diagrama de flujo
-        datos_part = datos
+    datos_part = filtrar_por_participante(datos, id_participante_str)
+    
+    if len(datos_part) == 0:
+        print('No se encontraron datos para ese participante')
         
+    else:
         try:
-           promedio = calcular_senal_promedio(datos_part) 
-           frecuencia = calcular_fc_desde_datos(datos_part)
-           minimo = calcular_minimo_senal(datos_part)
+           promedio = calcular_senal_promedio(datos_part)
            maximo = calcular_maximo_senal(datos_part)
+           minimo = calcular_minimo_senal(datos_part)
+           frecuencia = calcular_fc_desde_datos(datos_part)
         except ValueError as e:
             print("Error:", e)
-       
+
         print("Promedio:", promedio)
         print("Máximo:", maximo)
         print("Mínimo:", minimo)
         print("Frecuencia cardíaca:", frecuencia)
-     
-    else:
-
-        try:
-            id_participante = int(id_participante_str)
-        except ValueError:
-            print('El ID debe ser un numero')
-        
-        else:
-    
-            datos_part = filtrar_por_participante(datos, id_participante)
-            
-            if len(datos_part) == 0:
-                print('No se encontraron datos para ese participante')
-                
-            else:
-                try:
-                   promedio = calcular_senal_promedio(datos_part)
-                   maximo = calcular_maximo_senal(datos_part)
-                   minimo = calcular_minimo_senal(datos_part)
-                   frecuencia = calcular_fc_desde_datos(datos_part)
-                except ValueError as e:
-                    print("Error:", e)
-        
-                print("Promedio:", promedio)
-                print("Máximo:", maximo)
-                print("Mínimo:", minimo)
-                print("Frecuencia cardíaca:", frecuencia)
 

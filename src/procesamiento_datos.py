@@ -20,8 +20,16 @@ def filtrar_por_participante(lista, id_buscado):
     if len(lista) == 0:
         print('Lista vacía')
     
-    for dato in lista:
-        if dato["id_participante"] == id_buscado:
-            filtrados.append(dato)
+    if isinstance(id_buscado, str) and id_buscado.lower() =='todos':
+        return lista
     
-    return filtrados
+    try:
+        id_buscado = int(id_buscado)
+    except ValueError:
+        print('El ID debe ser un numero')
+    
+    else:
+        for dato in lista:
+            if dato["id_participante"] == id_buscado:
+                filtrados.append(dato)        
+        return filtrados
