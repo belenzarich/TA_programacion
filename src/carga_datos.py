@@ -22,10 +22,49 @@ def convertir_float(linea):
         raise ValueError('Error al convertir valor a float')
 
 def validar_categoria(valor, opciones_validas, nombre_campo):
+    '''
+    Funcion que valida que el valor este dentro de las opciones validas.
+    Parameters
+    ----------
+    valor : str
+        Nombre de la condicion o de las fases.
+    opciones_validas : lista
+        Lista con las opciones validas.
+    nombre_campo : str
+        Nombre del campo que se esta validando.
+
+    Returns
+    -------
+    None.
+    
+    Raises
+    ------
+    ValueError: si la opcion elegida es invalida.
+
+    '''
     if valor not in opciones_validas:
         raise ValueError(f"{nombre_campo} invalido. Opciones validas: {opciones_validas}")
 
 def validar_entero_positivo(valor, nombre_campo):
+    '''
+    Funcion que valida que los valores ingresados sean enteros y positivos
+
+    Parameters
+    ----------
+    valor : int
+        El numero a validar.
+    nombre_campo : str
+        Nombre del tipo de dato a validar.
+
+    Returns
+    -------
+    None.
+    
+    Raises
+    ------
+    ValueError: si el valor es menor o igual a cero.
+
+    '''
     if valor <= 0:
         raise ValueError(f"{nombre_campo} debe ser mayor a 0")
 
