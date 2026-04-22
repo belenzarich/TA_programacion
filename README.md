@@ -153,4 +153,17 @@ Nuestro manejo:
 * Se basa en funciones previas que ya validan estos errores
 
 
+##### **Objetos**
+
+Si utilizáramos objetos para el trabajo aplicado, lo haríamos de la siguiente manera:
+Nuestros objetos serían el participante y el registro. 
+
+*Objeto Participante:*
+* Sus atributos serían id y registro. 
+* Sus métodos serían “__init__”, agregar registro y mostrar información. 
+
+*Objeto Registro:*
+* Sus atributos serían id, tiempo, valor, fase, condición experimental y hit.
+* Sus métodos serían “__init__”, calcular las métricas básicas y mostrar información.
+
 
