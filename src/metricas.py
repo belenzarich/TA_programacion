@@ -145,8 +145,9 @@ def calcular_fc_desde_datos(datos):
     for d in datos: 
         tiempos.append(d["tiempo"]) 
         senal.append(d["valor"]) 
-        
-    validar_tiempo_creciente(tiempos) 
+    
+    if len(datos) == 1:
+        validar_tiempo_creciente(tiempos) 
     
     picos = detectar_picos_qrs(tiempos, senal) 
     return calcular_frecuencia_cardiaca(picos)
