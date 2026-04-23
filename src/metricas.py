@@ -1,12 +1,16 @@
 def calcular_senal_promedio(lista):
-    if len(lista) == 0:
-        raise ValueError("Lista no puede estar vacia")
-    suma = 0
-    for dato in lista:
-        valor = dato["valor"]
-        suma += valor
-    promedio = suma / len(lista)
-    return promedio
+    try:
+        if len(lista) == 0:
+            raise ValueError("Lista no puede estar vacia")
+    except Exception:
+        raise ValueError('Lista no puede estar vacía')
+    else:   
+        suma = 0
+        for dato in lista:
+            valor = dato["valor"]
+            suma += valor
+        promedio = suma / len(lista)
+        return promedio
 '''
 Funcion que calcula el promedio de la señal de una lista de diccionarios
 

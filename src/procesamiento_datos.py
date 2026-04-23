@@ -16,20 +16,23 @@ def filtrar_por_participante(lista, id_buscado):
 
     '''
     filtrados = []
-    
     if len(lista) == 0:
         print('Lista vacía')
     
-    if isinstance(id_buscado, str) and id_buscado.lower() =='todos':
-        return lista
-    
     try:
         id_buscado = int(id_buscado)
-    except ValueError:
-        print('El ID debe ser un numero')
+        if isinstance(id_buscado, str) and id_buscado.lower() =='todos':
+            return lista
+        print('El ID debe ser un numero o ''todos''')
+        
+    except Exception:
+        print("todo mal")
     
     else:
         for dato in lista:
             if dato["id_participante"] == id_buscado:
-                filtrados.append(dato)        
-        return filtrados
+                filtrados.append(dato)  
+        if len(filtrados) == 0:
+            print('No se encontraron datos para ese participante')
+        else:
+            return filtrados
