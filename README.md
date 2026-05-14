@@ -12,7 +12,7 @@ Este trabajo aplicado recibe una base de datos con mediciones de ECG y las anali
 
 
 
-A continuación se detallan los errores identificados en nuestras funciones y cómo se pueden manejar: 
+A continuación se detallan los errores identificados en nuestras funciones y cómo se pueden manejar:
 
 
 
@@ -30,8 +30,8 @@ Nuestro manejo:
 
 Se utiliza un try/except al abrir el archivo:
 
-* Si el archivo no se encuentra salta un mensaje y devuelve una lista vacia: FileNotFoundError 
-* Si hay otro tipo de error salta un mensaje general indicandolo: Exception 
+* Si el archivo no se encuentra salta un mensaje y devuelve una lista vacia: FileNotFoundError
+* Si hay otro tipo de error salta un mensaje general indicandolo: Exception
 
 
 
@@ -49,7 +49,7 @@ Cada línea se procesa dentro de un try/except
 * Los posibles errores que encontramos:
 
   * Cantidad incorrecta de columnas
-  * Error en la conversión de los datos 
+  * Error en la conversión de los datos
   * Error si se ingresa un valor invalido para el campo “hit”
 
 
@@ -74,16 +74,16 @@ Se usa un raise para el valor hit:
 
 *Funcion: filtrar\_por\_participante(datos, id\_participante)*
 
-* Los posibles errores que encontramos: 
+* Los posibles errores que encontramos:
 
   * Que la lista esté vacía
-  * Que el participante no exista 
+  * Que el participante no exista
 
 
 
 Nuestro manejo:
 
-* No utilizamos excepciones simplemente hicimos que salte un mensaje indicando que la lista está vacía si el largo de la lista era 0.  
+* No utilizamos excepciones simplemente hicimos que salte un mensaje indicando que la lista está vacía si el largo de la lista era 0.
 
 
 
@@ -93,13 +93,13 @@ Nuestro manejo:
 
 * Los posibles errores que encontramos:
 
-  * Que la lista vacía 
+  * Que la lista vacía
 
 
 
 Nuestro manejo:
 
-* Si la lista se encontraba vacía utilizamos un raise ValueError indicando que la lista no puede estar vacía. 
+* Si la lista se encontraba vacía utilizamos un raise ValueError indicando que la lista no puede estar vacía.
 
 
 
@@ -109,7 +109,7 @@ Nuestro manejo:
 
 * Errores posibles:
 
-  * Que la lista se encuentre vacía 
+  * Que la lista se encuentre vacía
 
 
 
@@ -125,8 +125,8 @@ Nuestro manejo:
 
 * Los posibles errores que encontramos:
 
-  * No se pueda calcular los intervalos si hay menos de 2 picos 
-  * Que los valores utilizados no sean numéricos 
+  * No se pueda calcular los intervalos si hay menos de 2 picos
+  * Que los valores utilizados no sean numéricos
 
 
 
@@ -141,7 +141,7 @@ Nuestro manejo:
 
 *Función: calcular\_fc\_desde\_datos(datos)*
 
-* Los posibles errores que encontramos: 
+* Los posibles errores que encontramos:
 
   * Datos estén vacíos
   * Hay un fallo en la detección de los picos
@@ -153,17 +153,39 @@ Nuestro manejo:
 * Se basa en funciones previas que ya validan estos errores
 
 
+
 ##### **Objetos**
 
 Si utilizáramos objetos para el trabajo aplicado, lo haríamos de la siguiente manera:
-Nuestros objetos serían el participante y el registro. 
+Nuestros objetos serían el participante y el registro.
 
 *Objeto Participante:*
-* Sus atributos serían id y registro. 
-* Sus métodos serían “__init__”, agregar registro y mostrar información. 
+
+* Sus atributos serían id y registro.
+* Sus métodos serían “**init**”, agregar registro y mostrar información.
 
 *Objeto Registro:*
-* Sus atributos serían id, tiempo, valor, fase, condición experimental y hit.
-* Sus métodos serían “__init__”, calcular las métricas básicas y mostrar información.
 
+* Sus atributos serían id, tiempo, valor, fase, condición experimental y hit.
+* Sus métodos serían “**init**”, calcular las métricas básicas y mostrar información.
+
+
+##### **Pandas**
+
+Si utilizáramos la librería pandas, podríamos trabajar con tablas mediante las estructuras de DataFrames.
+Actualmente hay muchas operaciones que se implementan manualmente recorriendo listas de diccionarios y realizando cálculos elemento por elemento. Con pandas, las listas de diccionarios podrían ser DataFrames y las operaciones se podrían simplificar con los métodos de esta librería.
+
+Por ejemplo, la función cargar\_datos abre el archivo manualmente y procesa cada línea. Con pandas se podría hacer:
+
+df = pd.read.csv("PulseLab\_mock\_data.csv")
+
+
+
+En la función filtrar por paciente se podría hacer:
+
+df\_filtrado = df\[df\["id\_participante"] == id]
+
+
+
+O en las funciones de señal promedio, señal máxima, señal mínima se podrían usar los métodos de pandas .mean(), .max(), o .min()
 
