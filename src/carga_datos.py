@@ -171,3 +171,68 @@ def cargar_datos(archivo):
     archivo.close()
 
     return datos
+
+
+
+
+
+#Función cargar datos con PANDAS
+import pandas as pd
+import os 
+
+def cargar_datos_pandas(archivo):
+    
+    """
+  Carga un archivo CSV utilizando Pandas y realiza
+  validaciones vectorizadas sobre los datos.
+
+  Parámetros:
+  ----------
+  archivo : str
+    Ruta del archivo CSV.
+
+  Returns:
+  -------
+  pandas.DataFrame
+    DataFrame con los datos cargados y validados.
+
+  Raises:
+  ------
+  FileNotFoundError
+    Si el archivo no existe.
+
+  ValueError
+    Si los datos contienen errores o inconsistencias.
+    """
+  
+    #Validación de ruta física/exista archivo
+    if not os.path.exists(archivo):
+        raise FileNotFoundError(f"No se encontró el archivo: {archivo}")
+
+    #Carga de datos (CSV)
+    ## El archivo CSV no contiene encabezados,por eso se utilizan header=None y names=[]
+    df = pd.read_csv(archivo, header=None, names=["id_participante", "tiempo", "valor", "fase", "condicion_experimental", "hit"])
+
+    #Validar valores vacíos
+    if df.isna().any().any():
+        raise ValueError("El archivo contiene valores vacíos o NaN.")
+  
+    #Validar tiempos negativos
+    if (df["tiempo"] < 0).any():
+        raise ValueError("Existen tiempos negativos inválidos.")
+
+    #Validar señal negativa
+    if (df["valor"] < 0).any():
+        raise ValueError("Existen valores negativos inválidos en la señal.")
+
+    #Validar orden temporal
+    if not df["tiempo"].is_monotonic_increasing:
+        print("Advertencia: los tiempos no están completamente ordenados.")
+
+    #Validar valores permitidos en fase
+        fases_validas = ["baseline", "tarea"]
+
+    if not df["fase"].isin(fases_validas).all():
+        raise ValueError("Se detectaron fases experimentales inválidas.")
+
+    return df
