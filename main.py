@@ -1,25 +1,26 @@
-from src.carga_datos import cargar_datos
-from src.procesamiento_datos import filtrar_por_participante
-from src.metricas import (calcular_senal_promedio, calcular_maximo_senal, calcular_minimo_senal, calcular_fc_desde_datos)
+from src.carga_datos import cargar_datos_pandas
+from src.procesamiento_datos import filtrar_por_participante_pandas
+from src.metricas import (calcular_senal_promedio_pandas, calcular_maximo_senal_pandas, calcular_minimo_senal_pandas, calcular_fc_desde_datos_pandas)
 
-datos = cargar_datos("datos/PulseLab_mock_data.csv")
+datos = cargar_datos_pandas("datos/PulseLab_mock_data.csv")
 
-if len(datos) == 0:
-    print('No se pudieron cargar datos')
+if datos.empty:
+    print("No se pudieron cargar datos")
+
 
 else:
-    id_participante_str = input('ID que desea buscar: ')
+    id_participante = int(input('ID que desea buscar: '))
     
-    datos_part = filtrar_por_participante(datos, id_participante_str)
+    datos_part = filtrar_por_participante_pandas(datos, id_participante)
 
-    if len(datos_part) == 0:
-        print('No se encontraron datos para ese participante o el ID es inválido')
-    
+    if datos_part.empty:
+        print("No se encontraron datos para ese participante")
+
     else:
         try:
-           promedio = calcular_senal_promedio(datos_part)
-           maximo = calcular_maximo_senal(datos_part)
-           minimo = calcular_minimo_senal(datos_part)
+           promedio = calcular_senal_promedio_pandas(datos_part)
+           maximo = calcular_maximo_senal_pandas(datos_part)
+           minimo = calcular_minimo_senal_pandas(datos_part)
            print("Promedio:", promedio)
            print("Máximo:", maximo)
            print("Mínimo:", minimo)
@@ -28,7 +29,7 @@ else:
             print("Error en las métricas básicas:", e)
         
         try:
-           frecuencia = calcular_fc_desde_datos(datos_part) 
+           frecuencia = calcular_fc_desde_datos_pandas(datos_part) 
            print("Frecuencia cardíaca:", frecuencia)
         except ValueError as e:
             print("Error en la frecuencia:", e)

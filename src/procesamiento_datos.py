@@ -54,6 +54,6 @@ def filtrar_por_participante_pandas(df, id_participante):
         del participante seleccionado.
     """
 
-    df_filtrado = df[df["id"] == id_participante]
+    df_filtrado = df[df["id_participante"] == id_participante]
 
     return df_filtrado
