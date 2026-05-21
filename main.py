@@ -1,6 +1,7 @@
 from src.carga_datos import cargar_datos_pandas
 from src.procesamiento_datos import filtrar_por_participante_pandas
 from src.metricas import (calcular_senal_promedio_pandas, calcular_maximo_senal_pandas, calcular_minimo_senal_pandas, calcular_fc_desde_datos_pandas)
+from src.visualizaciones import (graficar_promedio_por_condicion,graficar_senal_temporal)
 
 datos = cargar_datos_pandas("datos/PulseLab_mock_data.csv")
 
@@ -25,12 +26,18 @@ else:
            print("Máximo:", maximo)
            print("Mínimo:", minimo)
            
+           # GENERAR GRÁFICOS
+           graficar_promedio_por_condicion(datos)
+           graficar_senal_temporal(datos_part)
+           print("Gráficos generados correctamente.")
+           
         except ValueError as e:
             print("Error en las métricas básicas:", e)
         
         try:
            frecuencia = calcular_fc_desde_datos_pandas(datos_part) 
            print("Frecuencia cardíaca:", frecuencia)
+           
         except ValueError as e:
             print("Error en la frecuencia:", e)
 
