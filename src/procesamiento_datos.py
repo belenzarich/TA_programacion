@@ -32,3 +32,28 @@ def filtrar_por_participante(lista, id_buscado):
             filtrados.append(dato)  
 
     return filtrados
+
+
+#Filtrado de participantes con PANDAS
+def filtrar_por_participante_pandas(df, id_participante):
+    """
+    Filtra los datos correspondientes a un participante.
+
+    Parámetros:
+    ----------
+    df : pandas.DataFrame
+        DataFrame con todos los datos cargados.
+
+    id_participante : int
+        ID del participante que se desea buscar.
+
+    Returns:
+    -------
+    pandas.DataFrame
+        DataFrame filtrado con los datos
+        del participante seleccionado.
+    """
+
+    df_filtrado = df[df["id"] == id_participante]
+
+    return df_filtrado
