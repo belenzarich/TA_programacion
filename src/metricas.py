@@ -1,3 +1,4 @@
+#Calcular señal promedio
 def calcular_senal_promedio(lista):
     try:
         if len(lista) == 0:
@@ -26,6 +27,42 @@ Raises:
 ValueError: Si la lista esta vacia
 '''
 
+
+
+
+
+
+#Calcular señal promedio con PANDAS
+def calcular_senal_promedio_pandas(df):
+    """
+    Calcula el promedio de la señal ECG.
+
+    Parámetros:
+    ----------
+    df : pandas.DataFrame
+        DataFrame con los datos del participante.
+
+    Returns:
+    -------
+    float
+        Promedio de la señal.
+    Raises:
+    -------
+    ValueError: si el df está vacío.
+    """
+
+    if df.empty:
+        raise ValueError("El DataFrame está vacío.")
+    
+    return df["valor"].mean()
+
+
+
+
+
+
+
+#Calcular señal máxima
 def calcular_maximo_senal(lista):
   if len(lista) == 0:
     raise ValueError("La lista esta vacia")
@@ -53,6 +90,36 @@ ValueError: si la lista esta vacia
 '''
 
 
+
+
+
+#Calcular máxima señal con PANDAS
+def calcular_maximo_senal_pandas(df):
+    """
+    Calcula el valor máximo de la señal ECG.
+    Parámetros:
+    ----------
+    df : pandas.DataFrame
+        DataFrame con los datos del participante.
+
+    Returns:
+    -------
+    int
+        El valor máximo encontrado.
+    Raises:
+    -------
+    ValueError: si el df está vacío.
+    """
+
+    if df.empty:
+        raise ValueError("El DataFrame está vacío.")
+
+    return df["valor"].max()
+
+
+
+
+#Calcular señal mínima
 def calcular_minimo_senal(lista):
     if len(lista) == 0:
       raise ValueError("La lista está vacía")
@@ -79,6 +146,47 @@ Raises:
 ValueError: si la lista esta vacia
 '''
 
+
+
+
+
+
+
+
+#Calcular señal mínima con PANDAS
+def calcular_minimo_senal_pandas(df):
+    """
+    Calcula el valor mínimo de la señal ECG.
+    Parámetros:
+    ----------
+    df : pandas.DataFrame
+        DataFrame con los datos del participante.
+
+    Returns:
+    -------
+    int
+        El valor mínimo encontrado.
+    Raises:
+    -------
+    ValueError: si el df está vacío.
+    
+    """
+
+    if df.empty:
+        raise ValueError("El DataFrame está vacío.")
+
+    return df["valor"].min()
+
+
+
+
+
+
+
+
+
+
+#Calcular frecuencia cardíaca
 def calcular_frecuencia_cardiaca(picos):
     if len(picos) < 2:
         raise ValueError("No hay suficientes picos para calcular la frecuencia")
@@ -120,6 +228,10 @@ Raises:
 ValueError: si no hay suficientes picos para calcular la frecuencia, 
             si los picos no son numeros, y si el intervalo promedio es 0
 '''
+
+
+
+
 def validar_tiempo_creciente(tiempos):
 
     '''
@@ -140,7 +252,13 @@ def validar_tiempo_creciente(tiempos):
         if tiempos[i] <= tiempos[i-1]:
             raise ValueError(f"Error en posicion {i}: {tiempos[i]} <= {tiempos[i-1]}")
 
-            
+       
+
+
+
+
+
+#calcular fc desde datos
 from src.utils_ecg import detectar_picos_qrs 
 
 def calcular_fc_desde_datos(datos): 
@@ -167,3 +285,46 @@ Retorna:
 frecuencia: float
     La frecuencia cardiaca calculada en latidos por minuto.
 '''
+
+
+#Calcular fc desde datos con PANDAS
+def calcular_fc_desde_datos_pandas(datos):
+    """
+    Calcula la frecuencia cardíaca a partir de los datos
+    de señal ECG de un participante.
+
+    La función extrae los tiempos y valores de la señal
+    desde un DataFrame de Pandas, detecta los picos QRS
+    y luego calcula la frecuencia cardíaca utilizando
+    funciones auxiliares.
+
+    Parámetros:
+    ----------
+    datos : pandas.DataFrame
+        DataFrame que contiene los datos del participante.
+        Debe incluir las columnas:
+        - "tiempo"
+        - "valor"
+
+    Returns:
+    -------
+    float
+        Frecuencia cardíaca calculada.
+
+    Raises:
+    ------
+    ValueError
+        Si no hay suficientes datos para calcular
+        la frecuencia cardíaca o si los tiempos
+        no son válidos.
+    """
+    
+    tiempos = datos["tiempo"].tolist()
+    senal = datos["valor"].tolist()
+
+    if len(datos) > 1:
+        validar_tiempo_creciente(tiempos)
+
+    picos = detectar_picos_qrs(tiempos, senal)
+
+    return calcular_frecuencia_cardiaca(picos)
