@@ -189,3 +189,18 @@ df\_filtrado = df\[df\["id\_participante"] == id]
 
 O en las funciones de señal promedio, señal máxima, señal mínima se podrían usar los métodos de pandas .mean(), .max(), o .min()
 
+
+
+##### **Guía de Ejecución de la Interfaz Web**
+
+Para ejecutar la interfaz web del sistema, se debe abrir una terminal ubicada en la raíz del proyecto y ejecutar el siguiente comando:
+
+python3 -m streamlit run app.py
+
+Una vez ejecutado el comando, Streamlit iniciará un servidor local y abrirá automáticamente una pestaña en el navegador con el dashboard interactivo.
+
+En caso de que el navegador no se abra automáticamente, ingresar manualmente la dirección local indicada por Streamlit en la terminal (por ejemplo: http://localhost:8501).
+
+Antes de ejecutar la interfaz, verificar que Streamlit se encuentre instalado mediante:
+
+python3 -m pip install streamlit
