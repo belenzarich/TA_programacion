@@ -152,7 +152,7 @@ Nuestro manejo:
 
 * Se basa en funciones previas que ya validan estos errores
 
-
+\----
 
 ##### **Objetos**
 
@@ -168,7 +168,7 @@ Nuestros objetos serían el participante y el registro.
 
 * Sus atributos serían id, tiempo, valor, fase, condición experimental y hit.
 * Sus métodos serían “**init**”, calcular las métricas básicas y mostrar información.
-
+\----
 
 ##### **Pandas**
 
@@ -190,7 +190,7 @@ df\_filtrado = df\[df\["id\_participante"] == id]
 O en las funciones de señal promedio, señal máxima, señal mínima se podrían usar los métodos de pandas .mean(), .max(), o .min()
 
 
-
+\----
 ##### **Guía de Ejecución de la Interfaz Web**
 
 Para ejecutar la interfaz web del sistema, se debe abrir una terminal ubicada en la raíz del proyecto y ejecutar el siguiente comando:
