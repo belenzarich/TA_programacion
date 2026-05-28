@@ -1,0 +1,94 @@
+# prompts_dashboard.txt
+
+## 1. Prompt Semilla (Estructura ROCA)
+
+Rol:
+Actúa como un desarrollador experto en Python,
+Pandas y Streamlit especializado en dashboards
+científicos para análisis de señales biomédicas.
+
+Objetivo:
+Construir una interfaz web interactiva
+utilizando Streamlit para visualizar métricas
+y gráficos de señales ECG.
+
+Contexto:
+El proyecto ya posee un backend modular
+implementado en Python con:
+
+* carga de datos mediante Pandas
+* validaciones defensivas
+* cálculo de métricas
+* generación de gráficos con matplotlib
+
+La estructura incluye:
+
+* carga_datos.py
+* metricas.py
+* procesamiento_datos.py
+* visualizaciones.py
+
+El sistema debe permitir:
+
+* subir un CSV
+* validar datos
+* calcular métricas
+* visualizar gráficos
+* mostrar errores mediante Streamlit
+
+Acción:
+Generar un archivo app.py utilizando
+Streamlit que conecte la interfaz web
+con el backend existente sin modificar
+la lógica principal del sistema.
+
+---
+
+## 2. Registro de Iteraciones y Correcciones
+
+Problema detectado:
+La IA utilizó cargar_datos_pandas()
+en lugar de cargar_datos_streamlit()
+para el archivo subido desde Streamlit.
+
+Prompt de corrección:
+Corregí el uso de la función de carga
+para utilizar el archivo generado por
+st.file_uploader().
+
+---
+
+Problema detectado:
+Los gráficos no se mostraban correctamente
+porque las funciones de matplotlib
+guardaban imágenes PNG pero no retornaban
+figuras para st.pyplot().
+
+Prompt de corrección:
+Adaptá la visualización utilizando
+st.image() para mostrar las imágenes
+guardadas en la carpeta graficos/.
+
+---
+
+Problema detectado:
+El archivo app.py estaba ubicado dentro
+de src/ y Streamlit no lo encontraba.
+
+Prompt de corrección:
+Reorganizar la estructura del repositorio
+dejando app.py en la raíz del proyecto.
+
+---
+
+## 3. Reflexión Técnica
+
+La estrategia más efectiva fue dividir
+el desarrollo en módulos independientes
+y reutilizar el backend previamente
+implementado. Utilizar prompts específicos
+y corregir errores de forma incremental
+permitió reducir inconsistencias entre
+la interfaz Streamlit y la lógica de
+procesamiento de datos.
+
