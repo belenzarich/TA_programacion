@@ -1,22 +1,18 @@
 import streamlit as st
 
-from src.carga_datos import cargar_datos_pandas
+from src.carga_datos import cargar_datos_streamlit
 
-from src.procesamiento_datos import (
-    filtrar_por_participante_pandas
-)
+from src.procesamiento_datos import (filtrar_por_participante_pandas)
 
 from src.metricas import (
     calcular_senal_promedio_pandas,
     calcular_maximo_senal_pandas,
     calcular_minimo_senal_pandas,
-    calcular_fc_desde_datos_pandas
-)
+    calcular_fc_desde_datos_pandas)
 
 from src.visualizaciones import (
     graficar_promedio_por_condicion,
-    graficar_senal_temporal
-)
+    graficar_senal_temporal)
 
 # ---------------------------------------------------
 # CONFIGURACION PAGINA
@@ -24,8 +20,7 @@ from src.visualizaciones import (
 
 st.set_page_config(
     page_title="Dashboard ECG",
-    layout="wide"
-)
+    layout="wide")
 
 # ---------------------------------------------------
 # TITULO
@@ -52,7 +47,7 @@ if archivo is not None:
 
     try:
 
-        datos = cargar_datos_pandas(archivo)
+        datos = cargar_datos_streamlit(archivo)
 
     except Exception as e:
 
@@ -187,7 +182,9 @@ if archivo is not None:
                         )
                     )
 
-                    st.pyplot(fig1)
+                    st.image(
+    "graficos/comparacion_categorias.png"
+)
 
                     fig2 = (
                         graficar_senal_temporal(
@@ -195,11 +192,12 @@ if archivo is not None:
                         )
                     )
 
-                    st.pyplot(fig2)
+                    st.image(
+    "graficos/evolucion_temporal.png"
+)
 
-                except Exception as e:
+                except ValueError as e:
 
                     st.error(
                         f"Error al generar gráficos: {e}"
                     )
-```

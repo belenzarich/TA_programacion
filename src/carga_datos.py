@@ -236,3 +236,58 @@ def cargar_datos_pandas(archivo):
         raise ValueError("Se detectaron fases experimentales inválidas.")
 
     return df
+
+# Función cargar datos para STREAMLIT
+
+def cargar_datos_streamlit(archivo):
+
+    """
+    Carga un archivo CSV subido desde Streamlit
+    y realiza validaciones vectorizadas sobre los datos.
+
+    Parámetros:
+    ----------
+    archivo : UploadedFile
+        Archivo CSV cargado mediante st.file_uploader.
+
+    Returns:
+    -------
+    pandas.DataFrame
+        DataFrame validado.
+
+    Raises:
+    ------
+    ValueError
+        Si existen errores o inconsistencias
+        en los datos.
+    """
+
+    # Cargar CSV desde Streamlit
+    df = pd.read_csv(archivo,header=None,
+        names=["id_participante","tiempo",
+            "valor","fase","condicion_experimental",
+            "hit"])
+
+    # Validar valores vacíos
+    if df.isna().any().any():
+        raise ValueError("El archivo contiene valores vacíos o NaN.")
+
+    # Validar tiempos negativos
+    if (df["tiempo"] < 0).any():
+        raise ValueError("Existen tiempos negativos inválidos.")
+
+    # Validar señal negativa
+    if (df["valor"] < 0).any():
+        raise ValueError("Existen valores negativos inválidos en la señal.")
+
+    # Validar orden temporal
+    if not df["tiempo"].is_monotonic_increasing:
+        print("Advertencia: los tiempos no están completamente ordenados.")
+
+    # Validar fases válidas
+    fases_validas = ["baseline","tarea"]
+
+    if not df["fase"].isin(fases_validas).all():
+        raise ValueError("Se detectaron fases experimentales inválidas.")
+
+    return df
